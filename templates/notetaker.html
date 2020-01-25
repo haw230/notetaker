@@ -7,12 +7,14 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 
 <script type="text/javascript">
-let count = 0;
+var count = 0;
 let wrapper = document.getElementById("master-text");
 let myHTML = '';
+let useImageCount = 0;
 
 for (let i = 0; i < 100; i++) {
   myHTML += `<p id="text-${i}"></p>`;
+  myHTML += `<img id="image-${i}" style="visibility: hidden;">`;
 }
 
 wrapper.innerHTML = myHTML
@@ -29,20 +31,37 @@ function isIterable(obj) {
   return typeof obj[Symbol.iterator] === 'function';
 }
 
+const getImage = (text) => {
+  let Http = new XMLHttpRequest();
+  let url='/receiveImage';
+  Http.open("POST", url);
+  Http.send(JSON.stringify({data: text}));
+  Http.onreadystatechange = (e) => {
+      if(e.srcElement.readyState != 4 || e.currentTarget.status != 200) return;
+      let curImage = $(`#image-${count - 1}`);
+      curImage.attr("src", e.target.responseText);
+      curImage.css('visibility', 'visible');
+  }
+}
+
 recognition.onresult = function (event) { // change to onresult later
     if(!event.results) return;
     let text = event.results[event.results.length - 1][0].transcript;
 
-    const Http = new XMLHttpRequest();
-    const url='/receiveData';
+    let Http = new XMLHttpRequest();
+    let url='/receiveData';
     Http.open("POST", url);
     Http.send(JSON.stringify({data: text}));
     Http.onreadystatechange = (e) => {
         if(e.srcElement.readyState != 4) return;
-        console.log(text);
-        console.log(e);
-        $(`#text-${count}`).text(Http.responseText);
+        $(`#text-${count}`).text(e.target.responseText);
         ++count;
+    }
+    if(useImageCount == 2) {
+      getImage(text);
+      userImageCount = 0;
+    } else {
+      ++useImageCount;
     }
 }
 

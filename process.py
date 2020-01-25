@@ -11,9 +11,7 @@ PWD = '8eWjIjUYl0UGj1xz'
 stopwords = ['today', 'learn']
 
 def master_parser(text):
-  parsed_text = correct_text(text)
-  print(parsed_text)
-  return parsed_text
+  return text
 
 def get_image(text):
   try:
@@ -24,7 +22,9 @@ def get_image(text):
       'per_page': 1,
     }
     res = requests.get(URL, params=param, auth=HTTPBasicAuth(USER, PWD)).json()
-    print(res['data'][0]['assets']['preview']['url'])
+    image_url = res['data'][0]['assets']['preview']['url']
+    print(image_url)
+    return str(image_url)
   except IndexError:
     pass
 

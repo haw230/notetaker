@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from process import master_parser, get_image
+from notetaker.process import master_parser, get_image
 import json
 
 app = Flask(__name__)
@@ -12,12 +12,17 @@ def start_home():
 @app.route('/receiveData', methods=['GET', 'POST'])
 def receive_data():
     data = json.loads(str(request.get_data(), 'utf-8'))['data']
+    print(f'Receive Data: {data}')
     return master_parser(data)
 
 @app.route('/receiveImage', methods=['GET', 'POST'])
 def receive_image():
+    print(request.get_data())
     data = json.loads(str(request.get_data(), 'utf-8'))['data']
-    return get_image(data)
+    print(f'Receive Image: {data}')
+    image_url = get_image(data)
+    print(f'Received Image Url: {image_url}')
+    return image_url
 
 
 @app.route('/subtitles')
