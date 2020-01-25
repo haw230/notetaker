@@ -11,6 +11,8 @@ PWD = '8eWjIjUYl0UGj1xz'
 stopwords = ['today', 'learn']
 
 def master_parser(text):
+  if not (text.startswith('and') or text.startswith('or')):
+    text = text.capitalize()
   return text
 
 def get_image(text):

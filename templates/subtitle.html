@@ -1,9 +1,9 @@
 <center>
-  <img src="http://172.30.184.161:8080/shot.jpg" id="img1" style="visibility: visible;">
+  <img src="http://172.30.191.103:8080/shot.jpg" id="img1" style="visibility: visible;">
   <img src="" id="img2" style="visibility: hidden;">
   <div class="text-block">
     <center>
-      <p id="subtitle" size=200 fill=white stroke=black stroke-width=1></p>
+      <p id="subtitle" fill=white stroke=black stroke-width=1></p>
     </center>
   </div>
 </center>
@@ -60,7 +60,7 @@ recognition.onend = event => {
   recognition.start();
 }
 
-const URL = "http://172.30.184.161:8080"
+const URL = "http://172.30.191.103:8080"
 let showing = $("#img1");
 let working = $("#img2");
 let jsSizeOk = false;
@@ -96,15 +96,20 @@ working.attr("src", URL + "/shot.jpg?rnd="+Math.floor(Math.random()*1000000));
   color: white;
   text-shadow: 7px 7px 7px #000000;
   text-align: center;
-  bottom: 200px;
-  padding-left: 400px;
-  font-size:120px;
-  padding-right: 400px;
+  bottom: 15%;
+  padding-left: 12%;
+  font-size: 40px;
+  padding-right: 12%;
 }
 
 img{
-        max-width: 100%;
-        max-height: 100%;
-        display: block; /* remove extra space below image */
-    }
+  max-width: 1024px !important;
+  max-height: 768px !important;
+  display: block; /* remove extra space below image */
+}
+
+body
+{
+    background-color: #AFEEEE; 
+}
 </style>
