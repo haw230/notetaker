@@ -1,0 +1,57 @@
+<center>
+  <button id="button" onclick="toggleStartStop()">Start Recording</button>
+  <div id="master-text"></div>
+</center>
+
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+let count = 0;
+let wrapper = document.getElementById("master-text");
+let myHTML = '';
+
+for (let i = 0; i < 100; i++) {
+  myHTML += `<p id="text-${i}"></p>`;
+}
+
+wrapper.innerHTML = myHTML
+
+let recognition = new webkitSpeechRecognition();
+
+recognition.continuous = true;
+
+function isIterable(obj) {
+  // checks for null and undefined
+  if (obj == null) {
+    return false;
+  }
+  return typeof obj[Symbol.iterator] === 'function';
+}
+
+recognition.onresult = function (event) { // change to onresult later
+    if(!event.results) return;
+    let text = event.results[event.results.length - 1][0].transcript;
+
+    const Http = new XMLHttpRequest();
+    const url='/receiveData';
+    Http.open("POST", url);
+    Http.send(JSON.stringify({data: text}));
+    Http.onreadystatechange = (e) => {
+        if(e.srcElement.readyState != 4) return;
+        console.log(text);
+        console.log(e);
+        $(`#text-${count}`).text(Http.responseText);
+        ++count;
+    }
+}
+
+recognition.onend = event => {
+  recognition.start();
+}
+
+const toggleStartStop = () => {
+    recognition.start();
+}
+  </script>
+  
