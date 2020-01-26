@@ -25,8 +25,11 @@ def get_image(text):
       'per_page': 1,
     }
     res = requests.get(URL, params=param, auth=HTTPBasicAuth(USER, PWD)).json()
+    print(len(res['data']))
     index = randrange(10) if len(res['data']) > 9 else 0
     image_url = res['data'][index]['assets']['preview']['url']
+    if not image_url:
+      return "error"
     return str(image_url)
   except IndexError:
     pass
@@ -36,7 +39,7 @@ def extract_key_words(text):
   r = Rake(stopwords=stopwords, ranking_metric=Metric.WORD_DEGREE)
   r.extract_keywords_from_text(nouns)
   phrases = r.get_ranked_phrases()
-  return phrases[0].split(" ") if phrases else ["puppy"]
+  return phrases[0].split(" ") if phrases else ["dog"]
 
 def correct_text(text):
   client = GrammarBotClient(api_key='KS9C5N3Y')
