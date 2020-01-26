@@ -1,13 +1,18 @@
-<center>
-  <h1 style="position: absolute; padding-left: 45%;"><span style="color: #878f99">Note</span><span style="color: #6b5b95">taker</span></h1>
-  <img src="http://172.30.191.103:8080/shot.jpg" id="img1" style="visibility: visible;">
-  <img src="" id="img2" style="visibility: hidden;">
-  <div class="text-block">
-    <center>
-      <p id="subtitle" fill=white stroke=black stroke-width=1></p>
-    </center>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<div class="container">
+  <div class="container">
+    <h1 ><span style="color: #878f99">Note</span><span style="color: #6b5b95">taker</span></h1>
+    <img src="http://172.30.191.103:8080/shot.jpg" id="img1" style="visibility: visible;" class="rounded">
+    <img src="" id="img2" style="visibility: hidden;" class="rounded">
+    <div class="text-block">
+      <center>
+        <p id="subtitle" fill=white stroke=black stroke-width=1></p>
+      </center>
+    </div>
   </div>
-</center>
+
+</div>
+
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 <script type="text/javascript">
@@ -89,24 +94,34 @@ working.attr("src", URL + "/shot.jpg?rnd="+Math.floor(Math.random()*1000000));
 <style>
 .container {
   position: relative;
+  padding-left:3%;
 }
 
 /* Bottom right text */
 .text-block {
-  position: absolute;
   color: white;
+  text-shadow: 7px 7px 7px #000000;
+  font-size: 40px;
+  position: absolute;
+  bottom: 0;
+  /*color: white;
   text-shadow: 7px 7px 7px #000000;
   text-align: center;
   bottom: 15%;
   padding-left: 12%;
   font-size: 40px;
-  padding-right: 12%;
+  padding-right: 12%;*/
+}
+
+h1 {
+  position: absolute;
+  padding-left:40%;
 }
 
 img{
   max-width: 1024px !important;
   max-height: 768px !important;
-  display: block; /* remove extra space below image */
+  /*display: block;  remove extra space below image */
 }
 
 body

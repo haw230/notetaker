@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 <center>
-  <h1><span style="color: #878f99;">Note</span><span style="color: #6b5b95">taker</span></h1>
+  <h1 style="display: inline-block;"><span style="color: #878f99;">Note</span><span style="color: #6b5b95">taker</span></h1>
   <button id="button" onclick="toggleStartStop()" class="btn btn-success">Start Recording</button>
   <div id="master-text"></div>
 </center>
@@ -16,8 +16,8 @@ let myHTML = '';
 let useImageCount = 0;
 
 for (let i = 0; i < 100; i++) {
-  myHTML += `<p size=200 id="text-${i}"></p>`;
-  myHTML += `<img id="image-${i}" style="visibility: hidden;">`;
+  myHTML += `<p id="text-${i}" style="visibility: hidden;" class="text-bit"></p><br>`;
+  myHTML += `<img id="image-${i}" style="visibility: hidden;" class="rounded"><br>`;
 }
 
 wrapper.innerHTML = myHTML
@@ -57,7 +57,9 @@ recognition.onresult = function (event) { // change to onresult later
     Http.send(JSON.stringify({data: text}));
     Http.onreadystatechange = (e) => {
         if(e.srcElement.readyState != 4) return;
-        $(`#text-${count}`).text(e.target.responseText);
+        let curText = $(`#text-${count}`);
+        curText.text(e.target.responseText);
+        curText.css('visibility', 'visible');
         ++count;
     }
     if(useImageCount == 2) {
@@ -82,16 +84,24 @@ const toggleStartStop = () => {
   padding-top: 10px;
 }
 
+img, p {
+  box-shadow: 1px 1px 2px rgba(0,0,0,.6);
+  border-radius: 4px;
+}
+
 p {
-  padding-top: 10px;
-  size: 50;
-  padding-bottom: 10px;
-  font-family: Georgia
+  display: inline-block;
+  max-width: 650px;
+  padding: 20px;
+  font-size: 35px;
+  margin: 20px auto;
+  font-family: Georgia;
+  background: white;
 }
 
 body
 {
-    background-color: #AFEEEE; 
+  background-color: #AFEEEE; 
 }
 </style>
   
