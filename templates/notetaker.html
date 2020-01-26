@@ -58,7 +58,14 @@ recognition.onresult = function (event) { // change to onresult later
     Http.onreadystatechange = (e) => {
         if(e.srcElement.readyState != 4) return;
         let curText = $(`#text-${count}`);
-        curText.text(e.target.responseText);
+        let payload = JSON.parse(e.target.responseText)
+        if (payload.key_words != 'puppies') {
+          console.log(payload.key_words);
+          payload.key_words.forEach(key_word => {
+            payload.text = payload.text.replace(key_word, `<b>${key_word}</b>`)
+          });
+        }
+        curText.html(payload.text);
         curText.css('visibility', 'visible');
         ++count;
     }
