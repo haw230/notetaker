@@ -41,9 +41,10 @@ def extract_key_word(text):
 def correct_text(text):
   client = GrammarBotClient(api_key='KS9C5N3Y')
   res = client.check(text)
-  for _ in range(len(res.matches)):
-    print(res.matches[0].corrections)
-    text = res.matches[0].corrections[0]
+  for match in res.matches:
+    if(match.category != 'TYPOS'):
+      print(match.corrections)
+      text = match.corrections[0]
   if not text[0].isupper():
     text = text[1:]
   return text
